@@ -15,6 +15,23 @@
             width: 100%;
             box-sizing: border-box;
         }
+        select {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -30,8 +47,19 @@
 <body>
 
 <h1>搜尋 JSON 資料</h1>
-<p>輸入 "件號" 或 "圖號" 來搜尋。</p>
-<input type="text" id="searchInput" placeholder="請輸入件號或圖號" onkeyup="searchData()">
+<p>選擇搜尋方式，並輸入相應的 "件號" 或 "圖號"。</p>
+
+<!-- 下拉選單選擇搜尋方式 -->
+<select id="searchType">
+    <option value="件號">搜尋件號</option>
+    <option value="圖號">搜尋圖號</option>
+</select>
+
+<!-- 搜尋輸入框 -->
+<input type="text" id="searchInput" placeholder="請輸入件號或圖號">
+
+<!-- 搜尋按鈕 -->
+<button onclick="searchData()">搜尋</button>
 
 <table id="resultTable">
     <thead>
@@ -60,12 +88,12 @@
 <script>
     let jsonData = {};  // 初始化 JSON 變數
 
-    // 從指定路徑載入 JSON 檔案
-    fetch('file:///C:/Users/Chenyen.Guo/Desktop/python/EXCEL%E8%BD%89json/data.json')
+    // 從指定的 URL 載入 JSON 檔案
+    fetch('https://yen880529.github.io/-search_code/data.json')
         .then(response => response.json())
         .then(data => {
             jsonData = data; // 將讀取到的 JSON 資料賦值給 jsonData
-            console.log("JSON 資料載入成功");
+            console.log("JSON 資料載入成功", jsonData);
         })
         .catch(error => {
             console.error("無法載入 JSON 檔案:", error);
@@ -74,6 +102,7 @@
     // 搜尋功能
     function searchData() {
         const input = document.getElementById('searchInput').value.toLowerCase();
+        const searchType = document.getElementById('searchType').value;  // 取得選擇的搜尋方式
         const tableBody = document.getElementById('tableBody');
         tableBody.innerHTML = ''; // 清空表格
 
@@ -83,11 +112,16 @@
             return;
         }
 
+        let resultsFound = false; // 用來標記是否找到匹配的結果
+
         // 遍歷 JSON 資料
         for (const sheet in jsonData) {
             jsonData[sheet].forEach(item => {
-                // 判斷是否包含搜尋關鍵字
-                if (item.件號.toLowerCase().includes(input) || item.圖號.toLowerCase().includes(input)) {
+                // 根據選擇的搜尋方式，進行條件匹配
+                if (
+                    (searchType === "件號" && item.件號 && item.件號.toLowerCase().includes(input)) || 
+                    (searchType === "圖號" && item.圖號 && item.圖號.toLowerCase().includes(input))
+                ) {
                     const row = document.createElement('tr');
                     
                     // 顯示結果
@@ -109,8 +143,16 @@
                     `;
                     
                     tableBody.appendChild(row);
+                    resultsFound = true; // 找到結果
                 }
             });
+        }
+
+        // 如果沒有找到匹配結果
+        if (!resultsFound) {
+            const noResultsRow = document.createElement('tr');
+            noResultsRow.innerHTML = `<td colspan="14">未找到匹配的資料。</td>`;
+            tableBody.appendChild(noResultsRow);
         }
     }
 </script>
