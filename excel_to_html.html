@@ -3,56 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON 搜尋工具</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        input[type="text"] {
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        select {
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        /* 垂直排列每一筆資料的樣式 */
-        .result-item {
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            padding: 15px;
-        }
-        .result-item h3 {
-            margin: 0 0 10px 0;
-        }
-        .result-item div {
-            margin-bottom: 10px;
-        }
-        .result-item div span {
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="ui.css">
+    <title>檔號搜尋</title>
+
 </head>
 <body>
 
-<h1>搜尋 JSON 資料</h1>
-<p>選擇搜尋方式，並輸入相應的 "件號" 或 "圖號"。</p>
+<h1>檔號搜尋</h1>
 
 <!-- 下拉選單選擇搜尋方式 -->
 <select id="searchType">

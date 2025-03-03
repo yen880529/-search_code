@@ -1,0 +1,69 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    max-width: 1000px; /* 限制最大寬度 */
+    margin-left: auto;
+    margin-right: auto; /* 居中顯示 */
+}
+
+input[type="text"] {
+    padding: 10px;
+    margin: 10px 0;
+    width: 80%; /* 限制寬度為 80% */
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto; /* 讓輸入框居中 */
+    display: block;
+}
+
+select {
+    padding: 10px;
+    margin: 10px 0;
+    width: 80%; /* 限制寬度為 80% */
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto; /* 讓選單居中 */
+    display: block;
+}
+
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 80%; /* 限制寬度為 80% */
+    margin-left: auto;
+    margin-right: auto; /* 讓按鈕居中 */
+    display: block;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* 垂直排列每一筆資料的樣式 */
+.result-item {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding: 15px;
+    width: 80%; /* 限制寬度為 80% */
+    margin-left: auto;
+    margin-right: auto; /* 讓每筆資料區塊居中 */
+}
+
+.result-item h3 {
+    margin: 0 0 10px 0;
+    text-align: center; /* 讓標題居中 */
+}
+
+h1 {
+    text-align: center; /* 讓 h1 標題居中 */
+}
+.result-item div {
+    margin-bottom: 10px;
+}
+
+.result-item div span {
+    font-weight: bold;
+}
