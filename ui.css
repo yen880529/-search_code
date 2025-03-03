@@ -1,57 +1,83 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    max-width: 1000px; /* 限制最大寬度 */
+    max-width: 1000px;
     margin-left: auto;
-    margin-right: auto; /* 居中顯示 */
+    margin-right: auto; /* 讓整個內容區域居中 */
 }
 
-input[type="text"] {
-    padding: 10px;
-    margin: 10px 0;
-    width: 80%; /* 限制寬度為 80% */
+input, select, button {
+    width: 80%; /* 設定固定寬度來控制寬度 */
+    display: block; /* 確保這些元素是塊級元素 */
+    margin-left: auto; /* 讓元素居中 */
+    margin-right: auto; /* 讓元素居中 */
+    padding: 12px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    font-size: 16px;
     box-sizing: border-box;
-    margin-left: auto;
-    margin-right: auto; /* 讓輸入框居中 */
-    display: block;
-    font-size: 18px; /* 調整字體大小 */
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    margin-bottom: 15px; /* 在每個輸入框和按鈕之間增加間距 */
 }
 
-select {
-    padding: 10px;
-    margin: 10px 0;
-    width: 80%; /* 限制寬度為 80% */
-    box-sizing: border-box;
-    margin-left: auto;
-    margin-right: auto; /* 讓選單居中 */
-    display: block;
-    font-size: 18px; /* 調整字體大小 */
+input:focus, select:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* 增加按鈕和其他元素之間的間距 */
+    margin-top: 20px;
 }
 
 button {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
+    padding: 12px 25px;
     border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
     cursor: pointer;
-    width: 80%; /* 限制寬度為 80% */
-    margin-left: auto;
-    margin-right: auto; /* 讓按鈕居中 */
-    display: block;
+    font-size: 16px;
+    width: 80%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-bottom: 10px;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
-/* 垂直排列每一筆資料的樣式 */
+button:active {
+    background-color: #004085;
+    transform: translateY(1px);
+}
+
+select {
+    padding-right: 40px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path fill="%23007bff" d="M7 10l5 5 5-5H7z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+}
+
+select:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
 .result-item {
     border: 1px solid #ddd;
     margin-bottom: 20px;
     padding: 15px;
-    width: 80%; /* 限制寬度為 80% */
+    width: 80%;
     margin-left: auto;
-    margin-right: auto; /* 讓每筆資料區塊居中 */
+    margin-right: auto;
 }
 
 .result-item h3 {
@@ -60,8 +86,9 @@ button:hover {
 }
 
 h1 {
-    text-align: center; /* 讓 h1 標題居中 */
+    text-align: center; /* 讓標題居中 */
 }
+
 .result-item div {
     margin-bottom: 10px;
 }
