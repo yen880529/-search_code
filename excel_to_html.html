@@ -32,15 +32,20 @@
         button:hover {
             background-color: #45a049;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
+        /* 垂直排列每一筆資料的樣式 */
+        .result-item {
             border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+        .result-item h3 {
+            margin: 0 0 10px 0;
+        }
+        .result-item div {
+            margin-bottom: 10px;
+        }
+        .result-item div span {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -61,24 +66,9 @@
 <!-- 搜尋按鈕 -->
 <button onclick="searchData()">搜尋</button>
 
-<table id="resultTable">
-    <thead>
-        <tr>
-            <th>工作表名稱</th>
-            <th>程式</th>
-            <th>機種</th>
-            <th>名稱</th>
-            <th>圖號</th>
-            <th>版本</th>
-            <th>件號</th>
-            <th>備註</th>
-            <th>回傳</th>
-        </tr>
-    </thead>
-    <tbody id="tableBody">
-        <!-- 搜尋結果將顯示在這裡 -->
-    </tbody>
-</table>
+<div id="resultContainer">
+    <!-- 搜尋結果將顯示在這裡 -->
+</div>
 
 <script>
     let jsonData = {};  // 初始化 JSON 變數
@@ -98,8 +88,8 @@
     function searchData() {
         const input = document.getElementById('searchInput').value.toLowerCase();
         const searchType = document.getElementById('searchType').value;  // 取得選擇的搜尋方式
-        const tableBody = document.getElementById('tableBody');
-        tableBody.innerHTML = ''; // 清空表格
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.innerHTML = ''; // 清空結果容器
 
         // 確保 JSON 資料已成功載入
         if (Object.keys(jsonData).length === 0) {
@@ -117,22 +107,23 @@
                     (searchType === "件號" && item.件號 && item.件號.toLowerCase().includes(input)) || 
                     (searchType === "圖號" && item.圖號 && item.圖號.toLowerCase().includes(input))
                 ) {
-                    const row = document.createElement('tr');
+                    const resultItem = document.createElement('div');
+                    resultItem.classList.add('result-item');
                     
-                    // 顯示結果
-                    row.innerHTML = `
-                        <td>${sheet}</td>
-                        <td>${item.程式}</td>
-                        <td>${item.機種}</td>
-                        <td>${item.名稱}</td>
-                        <td>${item.圖號}</td>
-                        <td>${item.版本}</td>
-                        <td>${item.件號}</td>
-                        <td>${item.備註}</td>
-                        <td>${item.回傳}</td>
+                    // 顯示結果，垂直排列
+                    resultItem.innerHTML = `
+                        <h3>工作表名稱: ${sheet}</h3>
+                        <div><span>程式:</span> ${item.程式}</div>
+                        <div><span>機種:</span> ${item.機種}</div>
+                        <div><span>名稱:</span> ${item.名稱}</div>
+                        <div><span>圖號:</span> ${item.圖號}</div>
+                        <div><span>版本:</span> ${item.版本}</div>
+                        <div><span>件號:</span> ${item.件號}</div>
+                        <div><span>備註:</span> ${item.備註}</div>
+                        <div><span>回傳:</span> ${item.回傳}</div>
                     `;
                     
-                    tableBody.appendChild(row);
+                    resultContainer.appendChild(resultItem);
                     resultsFound = true; // 找到結果
                 }
             });
@@ -140,9 +131,9 @@
 
         // 如果沒有找到匹配結果
         if (!resultsFound) {
-            const noResultsRow = document.createElement('tr');
-            noResultsRow.innerHTML = `<td colspan="14">未找到匹配的資料。</td>`;
-            tableBody.appendChild(noResultsRow);
+            const noResultsMessage = document.createElement('div');
+            noResultsMessage.innerHTML = `<p>未找到匹配的資料。</p>`;
+            resultContainer.appendChild(noResultsMessage);
         }
     }
 </script>
