@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON 搜尋工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<h1>搜尋 JSON 資料</h1>
+<p>輸入 "件號" 或 "圖號" 來搜尋。</p>
+<input type="text" id="searchInput" placeholder="請輸入件號或圖號" onkeyup="searchData()">
+
+<table id="resultTable">
+    <thead>
+        <tr>
+            <th>工作表名稱</th>
+            <th>程式</th>
+            <th>機種</th>
+            <th>名稱</th>
+            <th>型號</th>
+            <th>圖號</th>
+            <th>版本</th>
+            <th>件號</th>
+            <th>批號</th>
+            <th>備註</th>
+            <th>作者</th>
+            <th>回傳</th>
+            <th>預計完成日</th>
+            <th>實際完成日</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <!-- 搜尋結果將顯示在這裡 -->
+    </tbody>
+</table>
+
+<script>
+    let jsonData = {};  // 初始化 JSON 變數
+
+    // 從指定路徑載入 JSON 檔案
+    fetch('file:///C:/Users/Chenyen.Guo/Desktop/python/EXCEL%E8%BD%89json/data.json')
+        .then(response => response.json())
+        .then(data => {
+            jsonData = data; // 將讀取到的 JSON 資料賦值給 jsonData
+            console.log("JSON 資料載入成功");
+        })
+        .catch(error => {
+            console.error("無法載入 JSON 檔案:", error);
+        });
+
+    // 搜尋功能
+    function searchData() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const tableBody = document.getElementById('tableBody');
+        tableBody.innerHTML = ''; // 清空表格
+
+        // 確保 JSON 資料已成功載入
+        if (Object.keys(jsonData).length === 0) {
+            console.log("尚未載入 JSON 資料");
+            return;
+        }
+
+        // 遍歷 JSON 資料
+        for (const sheet in jsonData) {
+            jsonData[sheet].forEach(item => {
+                // 判斷是否包含搜尋關鍵字
+                if (item.件號.toLowerCase().includes(input) || item.圖號.toLowerCase().includes(input)) {
+                    const row = document.createElement('tr');
+                    
+                    // 顯示結果
+                    row.innerHTML = `
+                        <td>${sheet}</td>
+                        <td>${item.程式}</td>
+                        <td>${item.機種}</td>
+                        <td>${item.名稱}</td>
+                        <td>${item.型號}</td>
+                        <td>${item.圖號}</td>
+                        <td>${item.版本}</td>
+                        <td>${item.件號}</td>
+                        <td>${item.批號}</td>
+                        <td>${item.備註}</td>
+                        <td>${item.作者}</td>
+                        <td>${item.回傳}</td>
+                        <td>${item.預計完成日}</td>
+                        <td>${item.實際完成日}</td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                }
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
