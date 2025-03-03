@@ -14,6 +14,7 @@ input[type="text"] {
     margin-left: auto;
     margin-right: auto; /* 讓輸入框居中 */
     display: block;
+    font-size: 18px; /* 調整字體大小 */
 }
 
 select {
@@ -24,6 +25,7 @@ select {
     margin-left: auto;
     margin-right: auto; /* 讓選單居中 */
     display: block;
+    font-size: 18px; /* 調整字體大小 */
 }
 
 button {
